@@ -1,0 +1,12 @@
+{
+    "KSCLC34":{"displayName":"KSC LC 34", "latitude": "28.521944", "longitude":"-80.561389" , "type":"reported"},
+    "KSCLC39A":{"displayName":"KSC LC 39A", "latitude": "28.608294979166", "longitude":"-80.60413849818285" , "type":"reported"},
+    "KSCLC39B":{"displayName":"KSC LC 39B", "latitude": "28.627222", "longitude":"-80.620833" , "type":"reported"},
+    "KSCLC19":{"displayName":"KSC LC 19", "latitude": "28.506667", "longitude":"-80.554167" , "type":"reported"},
+    "KSCLC5":{"displayName":"KSC LC 5", "latitude": "28.439444", "longitude": "-80.573333" , "type":"reported"},
+    "KSCLC14":{"displayName":"KSC LC 14", "latitude": "28.491111", "longitude":"-80.546944" , "type":"reported"},
+    "KSCLC40":{"displayName":"KSC LC 40", "latitude": "28.5619", "longitude":"-80.5772" , "type":"reported"},
+    "KSCLC41":{"displayName":"KSC LC 41", "latitude": "28.583333", "longitude":"-80.583056" , "type":"reported"},
+    "Baikonur":{"displayName":"Baikonur", "latitude": "45.965", "longitude":"63.305" , "type":"reported"}
+
+}
