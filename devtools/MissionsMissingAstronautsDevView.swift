@@ -3,54 +3,99 @@
 //  moonshot
 //
 //  Created by Adam on 20/04/2026.
+////
 //
-
-import SwiftUI
-
-//MARK: MissionDetailView
-struct MissionsMissingAstronautsDevView: View {
-    @EnvironmentObject var spaceDataStore: SpaceDataStore
-    struct CrewMember: Identifiable {
-        let id = UUID()
-        let role: String
-        let astronaut: Astronaut
-    }
-    struct Assignments: Identifiable {
-        let id = UUID()
-        let crew: [CrewMember]
-        let backupcrew: [CrewMember]
-    }
-    var body: some View{
-        NavigationStack{
-        let missions = spaceDataStore.missions
-        let astronauts = spaceDataStore.astronauts
-        var allAstronautList: [String] = spaceDataStore.astronauts.compactMap { (key: String, value: Astronaut) in
-            key
-        }
-        List {
-            ForEach(spaceDataStore.missions){ currentMission in
-                var thiskey = currentMission.name
-                var crewList = currentMission.crew.map{$0.name} + currentMission.backupcrew.map{$0.name}
-                ForEach(crewList, id: \.self) { crewMember in
-                    if allAstronautList.contains(crewMember) == false {
-                        Text("\(thiskey): \(crewMember)")
-                        
-                    }
-                }
-                //                missingDict[thiskey] = currentMissionMissing
-                
-                
-            } // close mission
-        }.navigationTitle("Astronauts to add") //list
-    }//close viewbody
-}
-        
-}// close view
-#Preview{
-    let previewStore = SpaceDataStore()
-
-    MissionsMissingAstronautsDevView().environmentObject(previewStore)
-}
+//import SwiftUI
+//
+////MARK: MissionDetailView
+//struct MissionsMissingAstronautsDevView: View {
+//    @EnvironmentObject var spaceDataStore: SpaceDataStore
+//    struct CrewMember: Identifiable {
+//        let id = UUID()
+//        let role: String
+//        let astronaut: Astronaut
+//    }
+//    struct Assignments: Identifiable {
+//        let id = UUID()
+//        let crew: [CrewMember]
+//        let backupcrew: [CrewMember]
+//    }
+//    
+//    var sortedAstronautsArray: [(key: String, value: Astronaut)] {
+//        spaceDataStore.astronauts.sorted { $0.key < $1.key }
+//    }
+//    
+//    var sortedSpacewalkersArray: [String] {
+//        var tempArray: [String] = []
+//        for spacewalk in spaceDataStore.spacewalks {
+//            for spacewalker in spacewalk.value.spacewalkers{
+//                if tempArray.contains(spacewalker.name) == false{
+//                    tempArray.append(spacewalker.name)
+//                }
+//            }
+//        }
+//
+//        return tempArray
+//    }
+//    
+//    var body: some View{
+//        NavigationStack{
+//            let missions = spaceDataStore.missions
+//            let astronauts = spaceDataStore.astronauts
+//            var allAstronautList: [String] = spaceDataStore.astronauts.compactMap { (key: String, value: Astronaut) in
+//                key
+//            }
+//            List {
+//                Section("jsons to fix"){
+//                    ForEach(spaceDataStore.missions){ currentMission in
+//                        var thiskey = currentMission.name
+//                        var crewList = currentMission.crew.map{$0.name} + currentMission.backupcrew.map{$0.name}
+//                        ForEach(crewList, id: \.self) { crewMember in
+//                            if allAstronautList.contains(crewMember) == false {
+//                                HStack{
+//                                    Text("\(thiskey): \(crewMember)")
+//                                    if UIImage(named: "\(crewMember)_list") == nil
+//                                    {Text("IMG")}
+//                                }
+//                                
+//                            }
+//                        }
+//                    }
+//                }
+//                Section("Spacewalkers"){
+//                    ForEach(sortedSpacewalkersArray, id:\.self){testString in
+//                        if (UIImage(named: "\(testString)_list") == nil){
+//                                Text(testString + " IMG missing")
+//                        }
+//
+//                    }
+//                }
+//                
+//                
+//                Section("Images"){
+////                    var printText = ""
+//                    ForEach(sortedAstronautsArray, id: \.key) { (key, value) in
+//                        if (UIImage(named: "\(value.id)_list") == nil){
+//                                Text(key + " IMG missing")
+//                        }
+//                        //                        if let astronautMissions = spaceDataStore.astronautMissionsDict[key] {
+////                            AstronautListViewRepeatableChunk(key: key, value: value, astronautMissions: astronautMissions)
+//                        }
+//                    }
+//                
+//                //                    }
+////
+////                }
+//                // close mission
+//            }.navigationTitle("Astronauts to update") //list
+//        } // navstack
+//    } //close viewbody
+//        
+//}// close view
+//#Preview{
+//    let previewStore = SpaceDataStore()
+//    MissionsMissingAstronautsDevView().environmentObject(previewStore)
+//}
 
 
 
