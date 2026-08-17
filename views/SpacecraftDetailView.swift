@@ -30,9 +30,8 @@ struct SpacecraftDetailView: View {
             for crew in mission.crew {
                 let key = crew.name
                 let value = spaceDataStore.astronauts[crew.name]!
-                // add key if missing
                 if myDict.keys.contains(key){
-                    myDict[key]! += 1
+                    myDict[key]! += 1 //// add key if missing
                 }
                 if myDict.keys.contains(key) == false {
                     myScore += 1
@@ -68,7 +67,6 @@ struct SpacecraftDetailView: View {
                     ),
                     spacecraft: spacecraft
                 )
-
                 LazyVGrid(columns: columns){
                     ForEach(spacecraftMissions.sorted{$0.launchDate ?? .distantPast < $1.launchDate ?? .distantPast}){mission in
                         MissionCardView(mission: mission)
