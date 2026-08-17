@@ -7,6 +7,9 @@
     "KSCLC14":{"displayName":"KSC LC 14", "latitude": "28.491111", "longitude":"-80.546944" , "type":"reported"},
     "KSCLC40":{"displayName":"KSC LC 40", "latitude": "28.5619", "longitude":"-80.5772" , "type":"reported"},
     "KSCLC41":{"displayName":"KSC LC 41", "latitude": "28.583333", "longitude":"-80.583056" , "type":"reported"},
-    "Baikonur":{"displayName":"Baikonur", "latitude": "45.965", "longitude":"63.305" , "type":"reported"}
+    "LA4SLS1921":{"displayName":"LA4-SLS-1/921", "latitude": "40.958056", "longitude":"100.291111" , "type":"reported"},
+
+    "Baikonur15":{"displayName":"Baikonur 1/5", "latitude": "45.920278", "longitude":"63.342222" , "type":"reported"},
+    "Baikonur316":{"displayName":"Baikonur 31/6", "latitude": "45.996", "longitude":"63.564" , "type":"reported"}
 
 }
