@@ -16,18 +16,17 @@ struct AstronautDetailViewSpacecraftSection: View {
         
         let spacecraftKey = String(spacecraftForAstronaut[num])
         let currentSpacecraft = spaceDataStore.spacecrafts[spacecraftKey]!
-        //.filter {spacecraft in
-        //    spacecraft.spacecraft == spacecraftKey}
-//        let currentSpacecraft = theSpacecraft[0]
+        
         NavigationLink{
             SpacecraftDetailView(spacecraft: currentSpacecraft)
         } label: {
-            
             VStack{
-//                Image(systemName: "photo")
                 Image(currentSpacecraft.spacecraft)
                     .resizable()
-                    .scaledToFit()
+                    .scaledToFill()
+                    .applyIf(missionShipsToInvert.contains(currentSpacecraft.spacecraft)){ content in
+                        content.colorInvert()
+                    }
                     .frame(width: 80)
                     .frame(height: 80)
                     .clipShape(.circle)
@@ -35,12 +34,13 @@ struct AstronautDetailViewSpacecraftSection: View {
                         Capsule()
                             .strokeBorder(.white, lineWidth: 1)
                     )
-                Text(currentSpacecraft.spacecraftName).foregroundStyle(.white)
+                Text(currentSpacecraft.country == "USA" ? currentSpacecraft.spacecraftName : currentSpacecraft.spacecraft
+                )
+                .lineLimit(1)
+                .minimumScaleFactor(0.1)
+                .allowsTightening(true)
+                .foregroundStyle(.white)
             }.padding(.horizontal)
         }
     }
 }
-
-//#Preview {
-//    AstronautDetailViewSpacecraftSection()
-//}
