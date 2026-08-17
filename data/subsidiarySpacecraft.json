@@ -2,45 +2,54 @@
 	"id":1,
 	"spacecraft":"LM-3",
 	"spacecraftName":"Spider",
+    "location":"Ascent stage and descent stage destroyed on atmospheric reentry",
 	"type":"LM"},
 "apollo10":{
 	"id":2,
 	"spacecraft":"LM-4",
+    "location":"Descent stage impacted on lunar surface. Ascent stage in heliocentric orbit",
 	"spacecraftName":"Snoopy",
 	"type":"LM"},
 "apollo11":{
 	"id":3,
 	"spacecraft":"LM-5",
 	"spacecraftName":"Eagle",
+    "location":"Ascent stage likely impacted lunar surface. \nDescent stage : Sea of Tranquility",
 	"type":"LM"},
 "apollo12":{
 	"id":4,
 	"spacecraft":"LM-6",
 	"spacecraftName":"Intrepid",
+    "location":"Ascent stage likely impacted lunar surface. \nDescent stage : Ocean of Storms",
 	"type":"LM"},
 "apollo13":{
 	"id":5,
 	"spacecraft":"LM-7",
+    "location":"Ascent stage and descent stage destroyed on atmospheric reentry",
 	"spacecraftName":"Aquarius",
 	"type":"LM"},
 "apollo14":{
 	"id":6,
 	"spacecraft":"LM-8",
+    "location":"Ascent stage impacted lunar surface. \nDescent stage : Fra Mauro",
 	"spacecraftName":"Antares",
 	"type":"LM"},
 "apollo15":{
 	"id":7,
 	"spacecraft":"LM-10",	
+    "location":"Ascent stage impacted lunar surface. \nDescent stage : Hadley-Appenine",
 	"spacecraftName":"Falcon",
 	"type":"ELM"},
 "apollo16":{
 	"id":8,
 	"spacecraft":"LM-11",	
+    "location":"Ascent stage impacted lunar surface. \nDescent stage : Descartes Highlands",
 	"spacecraftName":"Orion",
 	"type":"ELM"},
 "apollo17":{
 	"id":9,
 	"spacecraft":"LM-12",	
+    "location":"Ascent stage impacted lunar surface. \nDescent stage : Taurus-Littrow",
 	"spacecraftName":"Challenger",
 	"type":"ELM"}
 }   
