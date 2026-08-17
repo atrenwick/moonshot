@@ -7,128 +7,13 @@
 
 import Foundation
 import SwiftUI
-import Combine
 import MapKit
 
-
-// create observable object for all data
-
-class SpaceDataStore: ObservableObject {
-    // @Published tells views to update when this changes
-    @Published var missions: [Mission] = [] {
-        didSet {
-            recomputeCounts()
-        }
-    }
-    @Published var astronauts: [String: Astronaut] = [:] {
-        didSet {
-            recomputeCounts()
-        }
-    }
-    @Published var sortedAstronauts = []
-    @Published var spacecrafts: Dictionary<String,Spacecraft> = [:]
-    @Published var astronautMissionsDict: Dictionary<String,[Mission]> = [:]
-    @Published private(set) var flightCounts: [String: Int] = [:]
-    @Published var groupedMissions: Dictionary<String,[Mission]> = [:]
-    @Published var launchSites: [String: Location] = [:]
-    @Published var landingSites: [String: Location] = [:]
-    @Published var subsidiarySpaceCrafts: [String: SubsidiarySpaceCraft] = [:]
-
-    init() {
-        // init data here
-        let missionsUnsorted:[Mission] = Bundle.main.decode("missions.json")
-        self.missions = missionsUnsorted.sorted {$0.launchDate! < $1.launchDate!}
-        self.groupedMissions = Dictionary(grouping: missions) {$0.program}
-        
-        self.astronauts = Bundle.main.decode("astronauts.json") // decode json
-        
-        var allSortedAstronautsArray: [(key: String, value: Astronaut)] =
-            astronauts.sorted { $0.key < $1.key }
-        self.sortedAstronauts = allSortedAstronautsArray
-        self.spacecrafts = Bundle.main.decode("spacecraft.json") // decode json
-        
-        self.subsidiarySpaceCrafts = Bundle.main.decode("subsidiarySpacecraft.json")
-        
-        //MARK: init for launch sites
-        let launchSitesRaw: [String: MissionLocation] = Bundle.main.decode("launchsites.json")
-        var launchSitesTidy: [String: Location] = [:]
-        for thisKey in launchSitesRaw.keys {
-            let sitename = thisKey
-            let locEl = Location(
-//                name: sitename,
-                displayName : launchSitesRaw[thisKey]!.displayName,
-                coordinate: CLLocationCoordinate2D(
-                    latitude: Double(launchSitesRaw[thisKey]!.latitude)!,
-                    longitude: Double(launchSitesRaw[thisKey]!.longitude)!),
-                type: launchSitesRaw[thisKey]!.type
-                )
-            launchSitesTidy[sitename] = locEl
-        }
-        self.launchSites = launchSitesTidy
-
-        //MARK: init for landing sites
-        let landingSitesRaw : [String: MissionLocation] = Bundle.main.decode("landingSites.json")
-        var landingSitesTidy: [String: Location] = [:]
-        for thisKey in landingSitesRaw.keys{
-            let sitename = thisKey
-            let locEl = Location(
-                displayName: landingSitesRaw[thisKey]!.displayName,
-                coordinate: CLLocationCoordinate2D(
-                    latitude: Double(landingSitesRaw[thisKey]!.latitude)!,
-                    longitude: Double(landingSitesRaw[thisKey]!.longitude)!),
-                type:  landingSitesRaw[thisKey]!.type
-            )
-            landingSitesTidy[sitename] = locEl
-        }
-        self.landingSites = landingSitesTidy
-        
-        for thisAstronaut in astronauts {
-            let thisKey = thisAstronaut.key
-            let theseMissions = missions.filter { mission in
-                mission.crew.contains{ crewMember in
-                    crewMember.name == thisKey
-                }
-            }
-            if theseMissions.count > 0 {
-                astronautMissionsDict[thisKey] = theseMissions
-            } else {
-                let theseMissions = missions.filter { mission in
-                    mission.backupcrew.contains{ crewMember in
-                        crewMember.name == thisKey
-                    }
-                }
-                if theseMissions.count > 0 {
-                    astronautMissionsDict[thisKey] = theseMissions
-                    
-                } else {
-                    astronautMissionsDict[thisKey] = []
-                }
-                
-            }
-        }
-        self.astronautMissionsDict = astronautMissionsDict
-    }
-
-    
-    
-    func recomputeCounts() {
-        var counts: [String: Int] = [:]
-        
-        for mission in self.missions {
-            for crewmember in mission.crew {
-                counts[crewmember.name, default: 0] += 1
-            }
-        }
-        
-        flightCounts = counts
-    }
-}
 
 // mainAPP
 @main
 struct moonshotApp: App {
     @StateObject var spaceDataStore = SpaceDataStore()   // make state object from class instance
-    
     
     var body: some Scene {
         WindowGroup {
@@ -149,10 +34,55 @@ struct moonshotApp: App {
                     AllMapView()
                         .environmentObject(spaceDataStore)  // add datastore to environemnt, so directly callable from all views
                                     }
+                Tab("Expeditions", systemImage: "sum" ){
+                    ExpeditionListView()
+                        .environmentObject(spaceDataStore)  // add datastore to environemnt, so directly callable from all views
+                }
+                Tab("Program", systemImage: "p.square.fill" ){
+                    ProgramListView()
+                        .environmentObject(spaceDataStore)  // add datastore to environemnt, so directly callable from all views
+                                    }
+//                Tab("Dev", systemImage: "triangle" ){
+//                    dev_scratchView()
+//                        .environmentObject(spaceDataStore)  // add datastore to environemnt, so directly callable from all views
+//                                    }
+                Tab("Annot", systemImage: "triangle" ){
+                    AnnotatedTextView()
+                }
+                        
 
+                Tab("UD test", systemImage: "triangle" ){
+                    UDTestView() // add datastore to environemnt, so directly callable from all views
+                                    }
+                Tab("Conll test", systemImage: "triangle" ){
+                    SentenceInputView()}
+//                        
+//
+//                        conllSentObject:
+//                                            makeConllSent(conllLines:
+//                                                            makeConllLinesFromRaw(rawConllString: "# sent_id = 1\n1\tParis\tParis\tPROPN\t_\t_\t4\tnsubj\t_\t_\n2\test\têtre\tAUX\t_\tMood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin\t4\tcop\t_\t_\n3\tla\tle\tDET\t_\tDefinite=Def|Gender=Fem|Number=Sing|PronType=Art\t4\tdet\t_\t_\n4\tcapitale\tcapitale\tNOUN\t_\tNumber=Sing\t0\troot\t_\t_\n5\tfrançaise\tfrançais\tADJ\t_\tGender=Fem|Number=Sing\t4\tamod\t_\t_\n6\t.\t.\tPUNCT\t_\t_\t4\tpunct\t_\t_\n")))
+//                        
+//                     // add datastore to environemnt, so directly callable from all views
+//                                    }
+
+                
+                Tab("Traj", systemImage: "triangle" ){
+                    let previewStore = SpaceDataStore()
+                    let theseMissions = previewStore.missions.filter {$0.name == "apollo17"}
+                    if theseMissions.count > 0
+                    {if let components = theseMissions[0].identifiedComponents{
+//                        MapTrajectoryView3D( mission: theseMissions[0]).environmentObject(previewStore)
+// for non v2file
+                                                MapTrajectoryView3D( mission: theseMissions[0], targetComponents: components).environmentObject(previewStore)
+                    }
+                    }
+                    else {Text("No missions found")}
+
+                }
             }
         }
     }
 }
+
 
 
