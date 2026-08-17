@@ -28,7 +28,6 @@ struct SpacecraftDetailViewAstronautChunk: View {
                 } label: {
                     VStack{
                         ZStack(alignment: .topTrailing){
-//                            Image(systemName: "photo")
                             Image(key)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)

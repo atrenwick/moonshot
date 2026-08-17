@@ -23,10 +23,12 @@ struct ContentListViewReusableSegment: View {
                     Text("Crew: \(mission.crew.count )")
                     Spacer()
                 }
-                //                Image(systemName: "photo")
                 Image("\(mission.image)_card")
                     .resizable()
                     .scaledToFit()
+                    .applyIf(mission.invertPatch){ content in
+                        content.colorInvert()
+                    }
                     .frame(height: 20)
                     .clipShape(.circle)
                     .overlay(
@@ -34,15 +36,12 @@ struct ContentListViewReusableSegment: View {
                             .strokeBorder(.white, lineWidth: 1)
                     )
             }
-        }
-            .preferredColorScheme(.dark)
-//            .padding(.horizontal)
+        }.preferredColorScheme(.dark)
     }
 }
 
 #Preview {
     let spaceDataStore = SpaceDataStore()
-    let mission = spaceDataStore.missions[23]
+    let mission = spaceDataStore.missions[323]
     ContentListViewReusableSegment(mission: mission).environmentObject(SpaceDataStore())
 }
-

@@ -1,13 +1,12 @@
 //
-//  AstronautDetailViewMissionsSection.swift
+//  ProgramViewMissionSection.swift
 //  moonshot
 //
-//  Created by Adam on 24/04/2026.
+//  Created by Adam on 13/05/2026.
 //
-
 import SwiftUI
 
-struct AstronautDetailViewMissionsSection: View {
+struct ProgramViewMissionSection: View {
     @EnvironmentObject var spaceDataStore: SpaceDataStore
     let mission: Mission
     let showRole: Bool = false
@@ -34,10 +33,6 @@ struct AstronautDetailViewMissionsSection: View {
                     Text(mission.displayName)
                         .foregroundStyle(.white)
                         .font(.headline)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.1)
-                        .allowsTightening(true)
-                    
                 }
             }.padding(.horizontal)
                 .background(.darkBackground)
